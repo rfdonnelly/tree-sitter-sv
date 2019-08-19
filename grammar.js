@@ -167,8 +167,17 @@ module.exports = grammar({
       $.implicit_data_type
     ),
 
-    // FIXME
+    // FIXME: The implicit_data_type rule introduces ambiguity to the grammar.
+    // Need to determine most optimal way to resolve.
     implicit_data_type: $ => 'implicit_data_type',
+    // // NOTE: Refactored to prevent matching empty string
+    // implicit_data_type: $ => choice(
+    //   seq(
+    //     $.signing,
+    //     repeat($.packed_dimension)
+    //   ),
+    //   repeat1($.packed_dimension)
+    // ),
 
     data_type_or_void: $ => choice(
       $.data_type,
