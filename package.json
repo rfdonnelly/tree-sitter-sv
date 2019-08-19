@@ -1,0 +1,17 @@
+{
+  "name": "tree-sitter-sv",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "tree-sitter test"
+  },
+  "author": "Rob Donnelly",
+  "license": "MIT",
+  "dependencies": {
+    "nan": "^2.14.0"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.15.7"
+  }
+}
