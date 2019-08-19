@@ -1,0 +1,61 @@
+==================
+timeunit
+==================
+
+timeunit 1ns;
+
+---
+
+(source_text
+  (timeunits_declaration (time_literal))
+)
+
+==================
+timeunit - optional
+==================
+
+timeunit 1ns / 1ns;
+
+---
+
+(source_text
+  (timeunits_declaration (time_literal) (time_literal))
+)
+
+==================
+timeprecision
+==================
+
+timeprecision 1ns;
+
+---
+
+(source_text
+  (timeunits_declaration (time_literal))
+)
+
+==================
+timeunit, timeprecision
+==================
+
+timeunit 1ns;
+timeprecision 1ns;
+
+---
+
+(source_text
+  (timeunits_declaration (time_literal) (time_literal))
+)
+
+==================
+timeprecision, timeunit
+==================
+
+timeprecision 1ns;
+timeunit 1ns;
+
+---
+
+(source_text
+  (timeunits_declaration (time_literal) (time_literal))
+)

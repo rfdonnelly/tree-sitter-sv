@@ -1,0 +1,173 @@
+==================
+package
+==================
+
+package p;
+endpackage
+
+---
+
+(source_text
+  (package_declaration
+    (package_identifier (identifier (simple_identifier)))
+  )
+)
+
+==================
+package with lifetime
+==================
+
+package static p;
+endpackage
+
+---
+
+(source_text
+  (package_declaration
+    (lifetime)
+    (package_identifier (identifier (simple_identifier)))
+  )
+)
+
+==================
+package with timeunits
+==================
+
+package p;
+  timeunit 1ns;
+  timeprecision 1ns;
+endpackage
+
+---
+
+(source_text
+  (package_declaration
+    (package_identifier (identifier (simple_identifier)))
+    (timeunits_declaration (time_literal) (time_literal))
+  )
+)
+
+==================
+package with end identifier
+==================
+
+package p;
+  timeprecision 1ns;
+  timeunit 1ns;
+endpackage : p
+
+---
+
+(source_text
+  (package_declaration
+    (package_identifier (identifier (simple_identifier)))
+    (timeunits_declaration (time_literal) (time_literal))
+    (package_identifier (identifier (simple_identifier)))
+  )
+)
+
+==================
+package with null items
+==================
+
+package p;
+  ;
+  ;
+endpackage
+
+---
+
+(source_text
+  (package_declaration
+    (package_identifier (identifier (simple_identifier)))
+    (package_item)
+    (package_item)
+  )
+)
+
+==================
+package with variables
+==================
+
+package p;
+  int a;
+  int b = expression;
+endpackage
+
+---
+
+(source_text
+  (package_declaration
+    (package_identifier (identifier (simple_identifier)))
+    (package_item (data_declaration
+      (data_type_or_implicit (data_type (integer_atom_type)))
+      (list_of_variable_decl_assignments
+        (variable_decl_assignment
+          (variable_identifier (identifier (simple_identifier)))
+        )
+      )
+    ))
+    (package_item (data_declaration
+      (data_type_or_implicit (data_type (integer_atom_type)))
+      (list_of_variable_decl_assignments
+        (variable_decl_assignment
+          (variable_identifier (identifier (simple_identifier)))
+          (expression)
+        )
+      )
+    ))
+  )
+)
+
+==================
+package with variables and functions
+==================
+
+package p;
+  int a;
+  int b;
+  function void f();
+  endfunction
+  function void g();
+  endfunction
+endpackage
+
+---
+
+(source_text
+  (package_declaration
+    (package_identifier (identifier (simple_identifier)))
+    (package_item (data_declaration
+      (data_type_or_implicit (data_type (integer_atom_type)))
+      (list_of_variable_decl_assignments
+        (variable_decl_assignment
+          (variable_identifier (identifier (simple_identifier)))
+        )
+      )
+    ))
+    (package_item (data_declaration
+      (data_type_or_implicit (data_type (integer_atom_type)))
+      (list_of_variable_decl_assignments
+        (variable_decl_assignment
+          (variable_identifier (identifier (simple_identifier)))
+        )
+      )
+    ))
+    (package_item
+      (function_declaration
+        (function_body_declaration_ansi
+          (function_data_type_or_implicit (data_type_or_void))
+          (function_identifier (identifier (simple_identifier)))
+        )
+      )
+    )
+    (package_item
+      (function_declaration
+        (function_body_declaration_ansi
+          (function_data_type_or_implicit (data_type_or_void))
+          (function_identifier (identifier (simple_identifier)))
+        )
+      )
+    )
+  )
+)

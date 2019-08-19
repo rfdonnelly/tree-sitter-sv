@@ -1,0 +1,142 @@
+==================
+ANSI
+==================
+
+function void f();
+endfunction
+
+---
+
+(source_text
+  (package_item
+    (function_declaration
+      (function_body_declaration_ansi
+        (function_data_type_or_implicit (data_type_or_void))
+        (function_identifier (identifier (simple_identifier)))
+      )
+    )
+  )
+)
+
+==================
+non-ANSI
+==================
+
+function void f;
+endfunction
+
+---
+
+(source_text
+  (package_item
+    (function_declaration
+      (function_body_declaration_nonansi
+        (function_data_type_or_implicit (data_type_or_void))
+        (function_identifier (identifier (simple_identifier)))
+      )
+    )
+  )
+)
+
+==================
+ANSI w/ statement
+==================
+
+function void f();
+  return expression;
+endfunction
+
+---
+
+(source_text
+  (package_item
+    (function_declaration
+      (function_body_declaration_ansi
+        (function_data_type_or_implicit (data_type_or_void))
+        (function_identifier (identifier (simple_identifier)))
+        (statement (jump_statement (expression)))
+      )
+    )
+  )
+)
+
+==================
+ANSI w/ ports
+==================
+
+function void f(input int a, output int b);
+  return expression;
+endfunction
+
+---
+
+(source_text
+  (package_item
+    (function_declaration
+      (function_body_declaration_ansi
+        (function_data_type_or_implicit (data_type_or_void))
+        (function_identifier (identifier (simple_identifier)))
+        (tf_port_list
+          (tf_port_item
+            (tf_port_direction (port_direction))
+            (data_type_or_implicit (data_type (integer_atom_type)))
+            (port_identifier (identifier (simple_identifier)))
+          )
+          (tf_port_item
+            (tf_port_direction (port_direction))
+            (data_type_or_implicit (data_type (integer_atom_type)))
+            (port_identifier (identifier (simple_identifier)))
+          )
+        )
+        (statement (jump_statement (expression)))
+      )
+    )
+  )
+)
+
+==================
+ANSI w/ block_item_declaration
+==================
+
+function void f();
+  block_item_declaration
+  return expression;
+endfunction
+
+---
+
+(source_text
+  (package_item
+    (function_declaration
+      (function_body_declaration_ansi
+        (function_data_type_or_implicit (data_type_or_void))
+        (function_identifier (identifier (simple_identifier)))
+        (block_item_declaration)
+        (statement (jump_statement (expression)))
+      )
+    )
+  )
+)
+
+==================
+ANSI w/ end identifier
+==================
+
+function void f();
+  return expression;
+endfunction : f
+
+---
+
+(source_text
+  (package_item
+    (function_declaration
+      (function_body_declaration_ansi
+        (function_data_type_or_implicit (data_type_or_void))
+        (function_identifier (identifier (simple_identifier)))
+        (statement (jump_statement (expression)))
+        (function_identifier (identifier (simple_identifier)))
+      )
+    )
+  )
+)
