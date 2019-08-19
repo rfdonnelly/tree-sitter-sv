@@ -41,6 +41,14 @@ module.exports = grammar({
       seq('timeprecision', $.time_literal, ';', 'timeunit', $.time_literal, ';')
     ),
 
+    // A.1.3 Module parameters and ports
+    port_direction: $ => choice(
+      'input',
+      'output',
+      'inout',
+      'ref'
+    ),
+
     // A.1.11 Package items
     package_item: $ => choice(
       $._package_or_generate_item_declaration
@@ -101,6 +109,86 @@ module.exports = grammar({
       // $.net_type_declaration
     ),
 
+    lifetime: $ => choice(
+      'static',
+      'automaitc'
+    ),
+
+    // A.2.2 Declaration data types
+
+    // A.2.2.1 Net and variable types
+    data_type: $ => choice(
+      // FIXME
+      // seq(
+      //   $.integer_vector_type,
+      //   optional($.signing),
+      //   repeat($.packed_dimension)
+      // ),
+      seq(
+        $.integer_atom_type,
+        optional($.signing),
+      )
+      // FIXME
+      // $.non_integer_type,
+      // seq(
+      //   $.struct_union,
+      //   optional(seq('packed', optional($.signing))),
+      //   '{', $.struct_union_member, repeat($.struct_union_member), '}',
+      //   repeat($.packed_dimension)
+      // ),
+      // seq(
+      //   'enum',
+      //   optional($.enum_base_type),
+      //   '{', $.enum_name_declaration, repeat(seq(',', $.enum_name_declaration)), '}',
+      //   repeat($.packed_dimension)
+      // ),
+      // 'string',
+      // 'chandle',
+      // seq(
+      //   'virtual',
+      //   optional('interface'),
+      //   $.interface_identifier,
+      //   optional($.parameter_value_assignment),
+      //   optional(seq('.'), $.modport_identifier)
+      // ),
+      // seq(
+      //   optional(choice($.class_scope, $.package_scope)),
+      //   $.type_identifier,
+      //   repeat($.packed_dimension)
+      // ),
+      // $.class_type,
+      // 'event',
+      // $.ps_covergroup_identifier,
+      // $.type_reference
+    ),
+
+    data_type_or_implicit: $ => choice(
+      $.data_type,
+      $.implicit_data_type
+    ),
+
+    // FIXME
+    implicit_data_type: $ => 'implicit_data_type',
+
+    data_type_or_void: $ => choice(
+      $.data_type,
+      'void'
+    ),
+
+    integer_atom_type: $ => choice(
+      'byte',
+      'shortint',
+      'int',
+      'longint',
+      'integer',
+      'time'
+    ),
+
+    signing: $ => choice(
+      'signed',
+      'unsigned'
+    ),
+
     // A.2.3 Declaration lists
     list_of_param_assignments: $ => seq(
       $.param_assignment,
@@ -144,15 +232,35 @@ module.exports = grammar({
       // )
     ),
 
-    time_literal: $ => seq('1ns'), // FIXME
+    // A.2.5 Declaration ranges
+    unpacked_dimension: $ => choice(
+      seq('[', $.constant_range, ']'),
+      seq('[', $.constant_expression, ']')
+    ),
+    packed_dimension: $ => choice(
+      seq('[', $.constant_range, ']'),
+      $.unsized_dimension
+    ),
+    associative_dimension: $ => 'associative_dimension',
+    variable_dimension: $ => choice(
+      $.unsized_dimension,
+      $.unpacked_dimension,
+      $.associative_dimension,
+      $.queue_dimension
+    ),
+    queue_dimension: $ => 'queue_dimension',
+    unsized_dimension: $ => seq('[', ']'),
 
-    function_declaration: $ => seq(
-      'function', optional($.lifetime), $._function_body_declaration
+    // A.2.6 Function declarations
+    function_data_type_or_implicit: $ => choice(
+      $.data_type_or_void,
+      $.implicit_data_type
     ),
 
-    lifetime: $ => choice(
-      'static',
-      'automaitc'
+    function_declaration: $ => seq(
+      'function',
+      optional($.lifetime),
+      $._function_body_declaration
     ),
 
     _function_body_declaration: $ => choice(
@@ -186,13 +294,44 @@ module.exports = grammar({
       'endfunction', optional(seq(':', $.function_identifier))
     ),
 
-    _function_statement_or_null: $ => choice(
-      $._function_statement,
-      seq(repeat($.attribute_instance), ';')
+    // A.2.7 Task declarations
+    tf_item_declaration: $ => choice(
+      $.block_item_declaration,
+      $.tf_port_declaration
     ),
 
-    _function_statement: $ => $.statement,
+    tf_port_list: $ => seq(
+      $.tf_port_item,
+      repeat(seq(',', $.tf_port_item))
+    ),
 
+    tf_port_item: $ => seq(
+      repeat($.attribute_instance),
+      optional($.tf_port_direction),
+      optional('var'),
+      $.data_type_or_implicit,
+      optional(seq(
+        $.port_identifier,
+        repeat($.variable_dimension),
+        optional(seq('=', $.expression))
+      ))
+    ),
+
+    tf_port_direction: $ => choice(
+      $.port_direction,
+      'const ref'
+    ),
+
+    // FIXME
+    tf_port_declaration: $ => 'tf_port_declaration',
+
+    // A.2.8 Block item declarations
+    // FIXME
+    block_item_declaration: $ => 'block_item_declaration',
+
+    // A.6 Behavioral statements
+
+    // A.6.4
     statement: $ => seq(
       optional(seq($.block_identifier, ':')),
       repeat($.attribute_instance),
@@ -224,56 +363,75 @@ module.exports = grammar({
       // $.exact_property_statement
     ),
 
+    _function_statement: $ => $.statement,
+
+    _function_statement_or_null: $ => choice(
+      $._function_statement,
+      seq(repeat($.attribute_instance), ';')
+    ),
+
+    // A.6.5 Timing control statements
     jump_statement: $ => choice(
       seq('return', optional($.expression), ';'),
       seq('break', ';'),
       seq('continue', ';')
     ),
 
-    tf_item_declaration: $ => choice(
-      $.block_item_declaration,
-      $.tf_port_declaration
-    ),
-
-    tf_port_list: $ => seq(
-      $.tf_port_item,
-      repeat(seq(',', $.tf_port_item))
-    ),
-
-    tf_port_item: $ => seq(
-      repeat($.attribute_instance),
-      optional($.tf_port_direction),
-      optional('var'),
-      $.data_type_or_implicit,
-      optional(seq(
-        $.port_identifier,
-        repeat($.variable_dimension),
-        optional(seq('=', $.expression))
-      ))
-    ),
-
+    // A.8.3 Expressions
     // FIXME
-    block_item_declaration: $ => 'block_item_declaration',
-    tf_port_declaration: $ => 'tf_port_declaration',
-    implicit_data_type: $ => 'implicit_data_type',
-    escaped_identifier: $ => 'escaped_identifier',
-    unpacked_dimension: $ => 'unpacked_dimension',
-    associative_dimension: $ => 'associative_dimension',
-    queue_dimension: $ => 'queue_dimension',
-    expression: $ => 'expression',
+    constant_expression: $ => 'constant_expression',
+    // constant_expression: $ => choice(
+    //   $.constant_primary,
+    //   seq(
+    //     $.unary_operator,
+    //     repeat($.attribute_instance),
+    //     $.constant_primary
+    //   ),
+    //   seq(
+    //     $.constant_expression,
+    //     $.binary_operator,
+    //     repeat($.attribute_instance),
+    //     $.constant_expression
+    //   ),
+    //   seq(
+    //     $.constant_expression,
+    //     '?',
+    //     repeat($.attribute_instance),
+    //     $.constant_expression,
+    //     ':',
+    //     $.constant_expression
+    //   )
+    // ),
+    // FIXME
     constant_param_expression: $ => 'constant_param_expression',
-
-    variable_dimension: $ => choice(
-      $.unsized_dimension,
-      $.unpacked_dimension,
-      $.associative_dimension,
-      $.queue_dimension
+    constant_range: $ => seq(
+      $.constant_expression, ':', $.constant_expression
     ),
+    // FIXME
+    expression: $ => 'expression',
 
-    unsized_dimension: $ => seq('[', ']'),
+    // A.8.4 Primaries
+    time_literal: $ => '1ns', // FIXME
+
+    // A.9 General
+
+    // A.9.1 Attributes
+    attribute_instance: $ => seq(
+      '(*',
+      $.attr_spec,
+      repeat(seq(',', $.attr_spec)),
+      '*)'
+    ),
+    attr_spec: $ => seq(
+      $.attr_name,
+      optional(seq('=', $.constant_expression))
+    ),
+    attr_name: $ => $.identifier,
 
     // A.9.3 Identifiers
     block_identifier: $ => $.identifier,
+    // FIXME
+    escaped_identifier: $ => 'escaped_identifier',
     function_identifier: $ => $.identifier,
     identifier: $ => choice(
       $.simple_identifier,
@@ -285,54 +443,6 @@ module.exports = grammar({
     simple_identifier: $ => /[a-zA-Z_][a-zA-Z0-9_$]*/,
     type_identifier: $ => $.identifier,
     variable_identifier: $ => $.identifier,
-
-    function_data_type_or_implicit: $ => choice(
-      $.data_type_or_void,
-      $.implicit_data_type
-    ),
-
-    tf_port_direction: $ => choice(
-      $.port_direction,
-      'const ref'
-    ),
-
-    port_direction: $ => choice(
-      'input',
-      'output',
-      'inout',
-      'ref'
-    ),
-
-    data_type_or_implicit: $ => choice(
-      $.data_type,
-      $.implicit_data_type
-    ),
-
-    data_type_or_void: $ => choice(
-      $.data_type,
-      'void'
-    ),
-
-    // FIXME: complete
-    data_type: $ => choice(
-      seq($.integer_atom_type, optional($.signing))
-    ),
-
-    signing: $ => choice(
-      'signed',
-      'unsigned'
-    ),
-
-    integer_atom_type: $ => choice(
-      'byte',
-      'shortint',
-      'int',
-      'longint',
-      'integer',
-      'time'
-    ),
-
-    attribute_instance: $ => seq('(* *)')
   },
 
   inline: $ => [
