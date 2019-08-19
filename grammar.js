@@ -63,14 +63,27 @@ module.exports = grammar({
       // $.extern_constraint_declaration,
       // $.class_declaration,
       // $.class_constructor_declaration,
-      // seq($.local_param_declaration, ';'),
-      // seq($.param_declaration, ';'),
+      seq($.local_parameter_declaration, ';'),
+      seq($.parameter_declaration, ';'),
       // $.covergroup_declaration,
       // $.assertion_item_declaration,
       ';'
     ),
 
     // A.2 Declarations
+
+    // A.2.1 Declaration types
+
+    // A.2.1.1 Module parameter declarations
+    local_parameter_declaration: $ => choice(
+      seq('localparam', $.data_type_or_implicit, $.list_of_param_assignments),
+      seq('localparam', 'type', $.list_of_type_assignments)
+    ),
+
+    parameter_declaration: $ => choice(
+      seq('parameter', $.data_type_or_implicit, $.list_of_param_assignments),
+      seq('parameter', 'type', $.list_of_type_assignments)
+    ),
 
     // A.2.1.3 Type declarations
     data_declaration: $ => choice(
@@ -89,12 +102,29 @@ module.exports = grammar({
     ),
 
     // A.2.3 Declaration lists
+    list_of_param_assignments: $ => seq(
+      $.param_assignment,
+      repeat(seq(',', $.param_assignment))
+    ),
+    list_of_type_assignments: $ => seq(
+      $.type_assignment,
+      repeat(seq(',', $.type_assignment))
+    ),
     list_of_variable_decl_assignments: $ => seq(
       $.variable_decl_assignment,
       repeat(seq(',', $.variable_decl_assignment))
     ),
 
     // A.2.4 Declaration assignments
+    param_assignment: $ => seq(
+      $.parameter_identifier,
+      repeat($.unpacked_dimension),
+      optional(seq('=', $.constant_param_expression))
+    ),
+    type_assignment: $ => seq(
+      $.type_identifier,
+      optional(seq('=', $.data_type))
+    ),
     variable_decl_assignment: $ => choice(
       seq(
         $.variable_identifier,
@@ -231,6 +261,7 @@ module.exports = grammar({
     associative_dimension: $ => 'associative_dimension',
     queue_dimension: $ => 'queue_dimension',
     expression: $ => 'expression',
+    constant_param_expression: $ => 'constant_param_expression',
 
     variable_dimension: $ => choice(
       $.unsized_dimension,
@@ -248,9 +279,11 @@ module.exports = grammar({
       $.simple_identifier,
       $.escaped_identifier
     ),
+    parameter_identifier: $ => $.identifier,
     package_identifier: $ => $.identifier,
     port_identifier: $ => $.identifier,
     simple_identifier: $ => /[a-zA-Z_][a-zA-Z0-9_$]*/,
+    type_identifier: $ => $.identifier,
     variable_identifier: $ => $.identifier,
 
     function_data_type_or_implicit: $ => choice(

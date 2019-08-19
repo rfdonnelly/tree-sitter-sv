@@ -171,3 +171,46 @@ endpackage
     )
   )
 )
+
+==================
+package with parameters
+==================
+
+package p;
+  localparam int a = constant_param_expression, b = constant_param_expression;
+  parameter int a = constant_param_expression, b = constant_param_expression;
+endpackage
+
+---
+
+(source_text
+  (package_declaration
+    (package_identifier (identifier (simple_identifier)))
+    (package_item (local_parameter_declaration
+      (data_type_or_implicit (data_type (integer_atom_type)))
+      (list_of_param_assignments
+        (param_assignment
+          (parameter_identifier (identifier (simple_identifier)))
+          (constant_param_expression)
+        )
+        (param_assignment
+          (parameter_identifier (identifier (simple_identifier)))
+          (constant_param_expression)
+        )
+      )
+    ))
+    (package_item (parameter_declaration
+      (data_type_or_implicit (data_type (integer_atom_type)))
+      (list_of_param_assignments
+        (param_assignment
+          (parameter_identifier (identifier (simple_identifier)))
+          (constant_param_expression)
+        )
+        (param_assignment
+          (parameter_identifier (identifier (simple_identifier)))
+          (constant_param_expression)
+        )
+      )
+    ))
+  )
+)
