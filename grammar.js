@@ -169,14 +169,19 @@ module.exports = grammar({
 
     // FIXME: The implicit_data_type rule introduces ambiguity to the grammar.
     // Need to determine most optimal way to resolve.
-    implicit_data_type: $ => 'implicit_data_type',
-    // // NOTE: Refactored to prevent matching empty string
-    // implicit_data_type: $ => choice(
-    //   seq(
-    //     $.signing,
-    //     repeat($.packed_dimension)
-    //   ),
-    //   repeat1($.packed_dimension)
+    // implicit_data_type: $ => 'implicit_data_type',
+    // NOTE: Refactored to prevent matching empty string
+    implicit_data_type: $ => prec.left(choice(
+      seq(
+        $.signing,
+        repeat($.packed_dimension)
+      ),
+      repeat1($.packed_dimension)
+    )),
+    // Direct implementation of the EBNF
+    // implicit_data_type: $ => seq(
+    //   optional($.signing),
+    //   repeat($.packed_dimension)
     // ),
 
     data_type_or_void: $ => choice(
@@ -314,7 +319,7 @@ module.exports = grammar({
       repeat(seq(',', $.tf_port_item))
     ),
 
-    tf_port_item: $ => seq(
+    tf_port_item: $ => prec.left(seq(
       repeat($.attribute_instance),
       optional($.tf_port_direction),
       optional('var'),
@@ -324,7 +329,7 @@ module.exports = grammar({
         repeat($.variable_dimension),
         optional(seq('=', $.expression))
       ))
-    ),
+    )),
 
     tf_port_direction: $ => choice(
       $.port_direction,
@@ -462,7 +467,10 @@ module.exports = grammar({
     $.port_identifier,
     $.type_identifier,
     $.variable_identifier
+  ],
 
+  conflicts: $ => [
+    [$.data_type]
   ]
 
 });
