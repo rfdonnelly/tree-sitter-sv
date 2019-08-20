@@ -140,3 +140,41 @@ endfunction : f
     )
   )
 )
+
+==================
+ANSI with implicit types
+==================
+
+function void f(signed [] b, [][] c);
+  return expression;
+endfunction
+
+---
+
+(source_text
+  (package_item
+    (function_declaration
+      (function_body_declaration_ansi
+        (function_data_type_or_implicit (data_type_or_void))
+        (simple_identifier)
+        (tf_port_list
+          (tf_port_item
+            (data_type_or_implicit (implicit_data_type
+              (signing)
+              (packed_dimension (unsized_dimension))
+            ))
+            (simple_identifier)
+          )
+          (tf_port_item
+            (data_type_or_implicit (implicit_data_type
+              (packed_dimension (unsized_dimension))
+              (packed_dimension (unsized_dimension))
+            ))
+            (simple_identifier)
+          )
+        )
+        (statement (jump_statement (expression)))
+      )
+    )
+  )
+)
