@@ -435,26 +435,34 @@ module.exports = grammar({
       $.attr_name,
       optional(seq('=', $.constant_expression))
     ),
-    attr_name: $ => $.identifier,
+    attr_name: $ => $._identifier,
 
     // A.9.3 Identifiers
-    block_identifier: $ => $.identifier,
+    block_identifier: $ => $._identifier,
     // FIXME
     escaped_identifier: $ => 'escaped_identifier',
-    function_identifier: $ => $.identifier,
-    identifier: $ => choice(
+    function_identifier: $ => $._identifier,
+    _identifier: $ => choice(
       $.simple_identifier,
       $.escaped_identifier
     ),
-    parameter_identifier: $ => $.identifier,
-    package_identifier: $ => $.identifier,
-    port_identifier: $ => $.identifier,
+    parameter_identifier: $ => $._identifier,
+    package_identifier: $ => $._identifier,
+    port_identifier: $ => $._identifier,
     simple_identifier: $ => /[a-zA-Z_][a-zA-Z0-9_$]*/,
-    type_identifier: $ => $.identifier,
-    variable_identifier: $ => $.identifier,
+    type_identifier: $ => $._identifier,
+    variable_identifier: $ => $._identifier,
   },
 
   inline: $ => [
+    $.block_identifier,
+    $.function_identifier,
+    $.parameter_identifier,
+    $.package_identifier,
+    $.port_identifier,
+    $.type_identifier,
+    $.variable_identifier
+
   ]
 
 });

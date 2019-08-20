@@ -9,7 +9,7 @@ endpackage
 
 (source_text
   (package_declaration
-    (package_identifier (identifier (simple_identifier)))
+    (simple_identifier)
   )
 )
 
@@ -25,7 +25,7 @@ endpackage
 (source_text
   (package_declaration
     (lifetime)
-    (package_identifier (identifier (simple_identifier)))
+    (simple_identifier)
   )
 )
 
@@ -42,7 +42,7 @@ endpackage
 
 (source_text
   (package_declaration
-    (package_identifier (identifier (simple_identifier)))
+    (simple_identifier)
     (timeunits_declaration (time_literal) (time_literal))
   )
 )
@@ -60,9 +60,9 @@ endpackage : p
 
 (source_text
   (package_declaration
-    (package_identifier (identifier (simple_identifier)))
+    (simple_identifier)
     (timeunits_declaration (time_literal) (time_literal))
-    (package_identifier (identifier (simple_identifier)))
+    (simple_identifier)
   )
 )
 
@@ -79,7 +79,7 @@ endpackage
 
 (source_text
   (package_declaration
-    (package_identifier (identifier (simple_identifier)))
+    (simple_identifier)
     (package_item)
     (package_item)
   )
@@ -98,12 +98,12 @@ endpackage
 
 (source_text
   (package_declaration
-    (package_identifier (identifier (simple_identifier)))
+    (simple_identifier)
     (package_item (data_declaration
       (data_type_or_implicit (data_type (integer_atom_type)))
       (list_of_variable_decl_assignments
         (variable_decl_assignment
-          (variable_identifier (identifier (simple_identifier)))
+          (simple_identifier)
         )
       )
     ))
@@ -111,7 +111,7 @@ endpackage
       (data_type_or_implicit (data_type (integer_atom_type)))
       (list_of_variable_decl_assignments
         (variable_decl_assignment
-          (variable_identifier (identifier (simple_identifier)))
+          (simple_identifier)
           (expression)
         )
       )
@@ -136,12 +136,12 @@ endpackage
 
 (source_text
   (package_declaration
-    (package_identifier (identifier (simple_identifier)))
+    (simple_identifier)
     (package_item (data_declaration
       (data_type_or_implicit (data_type (integer_atom_type)))
       (list_of_variable_decl_assignments
         (variable_decl_assignment
-          (variable_identifier (identifier (simple_identifier)))
+          (simple_identifier)
         )
       )
     ))
@@ -149,7 +149,7 @@ endpackage
       (data_type_or_implicit (data_type (integer_atom_type)))
       (list_of_variable_decl_assignments
         (variable_decl_assignment
-          (variable_identifier (identifier (simple_identifier)))
+          (simple_identifier)
         )
       )
     ))
@@ -157,7 +157,7 @@ endpackage
       (function_declaration
         (function_body_declaration_ansi
           (function_data_type_or_implicit (data_type_or_void))
-          (function_identifier (identifier (simple_identifier)))
+          (simple_identifier)
         )
       )
     )
@@ -165,7 +165,7 @@ endpackage
       (function_declaration
         (function_body_declaration_ansi
           (function_data_type_or_implicit (data_type_or_void))
-          (function_identifier (identifier (simple_identifier)))
+          (simple_identifier)
         )
       )
     )
@@ -185,16 +185,16 @@ endpackage
 
 (source_text
   (package_declaration
-    (package_identifier (identifier (simple_identifier)))
+    (simple_identifier)
     (package_item (local_parameter_declaration
       (data_type_or_implicit (data_type (integer_atom_type)))
       (list_of_param_assignments
         (param_assignment
-          (parameter_identifier (identifier (simple_identifier)))
+          (simple_identifier)
           (constant_param_expression)
         )
         (param_assignment
-          (parameter_identifier (identifier (simple_identifier)))
+          (simple_identifier)
           (constant_param_expression)
         )
       )
@@ -203,11 +203,11 @@ endpackage
       (data_type_or_implicit (data_type (integer_atom_type)))
       (list_of_param_assignments
         (param_assignment
-          (parameter_identifier (identifier (simple_identifier)))
+          (simple_identifier)
           (constant_param_expression)
         )
         (param_assignment
-          (parameter_identifier (identifier (simple_identifier)))
+          (simple_identifier)
           (constant_param_expression)
         )
       )

@@ -12,7 +12,7 @@ endfunction
     (function_declaration
       (function_body_declaration_ansi
         (function_data_type_or_implicit (data_type_or_void))
-        (function_identifier (identifier (simple_identifier)))
+        (simple_identifier)
       )
     )
   )
@@ -32,7 +32,7 @@ endfunction
     (function_declaration
       (function_body_declaration_nonansi
         (function_data_type_or_implicit (data_type_or_void))
-        (function_identifier (identifier (simple_identifier)))
+        (simple_identifier)
       )
     )
   )
@@ -53,7 +53,7 @@ endfunction
     (function_declaration
       (function_body_declaration_ansi
         (function_data_type_or_implicit (data_type_or_void))
-        (function_identifier (identifier (simple_identifier)))
+        (simple_identifier)
         (statement (jump_statement (expression)))
       )
     )
@@ -75,17 +75,17 @@ endfunction
     (function_declaration
       (function_body_declaration_ansi
         (function_data_type_or_implicit (data_type_or_void))
-        (function_identifier (identifier (simple_identifier)))
+        (simple_identifier)
         (tf_port_list
           (tf_port_item
             (tf_port_direction (port_direction))
             (data_type_or_implicit (data_type (integer_atom_type)))
-            (port_identifier (identifier (simple_identifier)))
+            (simple_identifier)
           )
           (tf_port_item
             (tf_port_direction (port_direction))
             (data_type_or_implicit (data_type (integer_atom_type)))
-            (port_identifier (identifier (simple_identifier)))
+            (simple_identifier)
           )
         )
         (statement (jump_statement (expression)))
@@ -110,7 +110,7 @@ endfunction
     (function_declaration
       (function_body_declaration_ansi
         (function_data_type_or_implicit (data_type_or_void))
-        (function_identifier (identifier (simple_identifier)))
+        (simple_identifier)
         (block_item_declaration)
         (statement (jump_statement (expression)))
       )
@@ -133,9 +133,9 @@ endfunction : f
     (function_declaration
       (function_body_declaration_ansi
         (function_data_type_or_implicit (data_type_or_void))
-        (function_identifier (identifier (simple_identifier)))
+        (simple_identifier)
         (statement (jump_statement (expression)))
-        (function_identifier (identifier (simple_identifier)))
+        (simple_identifier)
       )
     )
   )
