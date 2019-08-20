@@ -126,7 +126,7 @@ module.exports = grammar({
       // ),
       seq(
         $.integer_atom_type,
-        optional($.signing),
+        optional($.signing)
       )
       // FIXME
       // $.non_integer_type,
