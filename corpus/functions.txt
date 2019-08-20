@@ -145,7 +145,7 @@ endfunction : f
 ANSI with implicit types
 ==================
 
-function void f(signed [] b, [][] c);
+function void f(signed [] b, [][]c[][]);
   return expression;
 endfunction
 
@@ -171,6 +171,8 @@ endfunction
               (packed_dimension (unsized_dimension))
             ))
             (simple_identifier)
+            (variable_dimension (unsized_dimension))
+            (variable_dimension (unsized_dimension))
           )
         )
         (statement (jump_statement (expression)))
