@@ -302,7 +302,7 @@ module.exports = grammar({
       //    seq($.interface_identifier, '.'),
       //    $.class_scope
       // )),
-      $.function_identifier, '(', repeat($.tf_port_list), ')', ';',
+      $.function_identifier, '(', optional($.tf_port_list), ')', ';',
       repeat($.block_item_declaration),
       repeat($._function_statement_or_null),
       'endfunction', optional(seq(':', $.function_identifier))
