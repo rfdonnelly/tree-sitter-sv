@@ -1,0 +1,39 @@
+==================
+time literals
+==================
+
+time a = 0s, b = 1ms, c = 2us, d = 3ns, e = 4ps, f = 5fs;
+
+---
+
+(source_text
+  (package_item (data_declaration
+    (data_type_or_implicit (data_type (integer_atom_type)))
+    (list_of_variable_decl_assignments
+      (variable_decl_assignment
+        (simple_identifier)
+        (primary (time_literal (unsigned_number) (time_unit)))
+      )
+      (variable_decl_assignment
+        (simple_identifier)
+        (primary (time_literal (unsigned_number) (time_unit)))
+      )
+      (variable_decl_assignment
+        (simple_identifier)
+        (primary (time_literal (unsigned_number) (time_unit)))
+      )
+      (variable_decl_assignment
+        (simple_identifier)
+        (primary (time_literal (unsigned_number) (time_unit)))
+      )
+      (variable_decl_assignment
+        (simple_identifier)
+        (primary (time_literal (unsigned_number) (time_unit)))
+      )
+      (variable_decl_assignment
+        (simple_identifier)
+        (primary (time_literal (unsigned_number) (time_unit)))
+      )
+    )
+  ))
+)

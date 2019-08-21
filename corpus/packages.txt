@@ -43,7 +43,7 @@ endpackage
 (source_text
   (package_declaration
     (simple_identifier)
-    (timeunits_declaration (time_literal) (time_literal))
+    (timeunits_declaration (time_literal (unsigned_number) (time_unit)) (time_literal (unsigned_number) (time_unit)))
   )
 )
 
@@ -61,7 +61,7 @@ endpackage : p
 (source_text
   (package_declaration
     (simple_identifier)
-    (timeunits_declaration (time_literal) (time_literal))
+    (timeunits_declaration (time_literal (unsigned_number) (time_unit)) (time_literal (unsigned_number) (time_unit)))
     (simple_identifier)
   )
 )

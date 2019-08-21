@@ -443,7 +443,13 @@ module.exports = grammar({
         // $.string_literal
     ),
 
-    time_literal: $ => '1ns', // FIXME
+    time_literal: $ => choice(
+      seq($.unsigned_number, $.time_unit),
+      // FIXME
+      // seq($.fixed_point_number, $.time_unit),
+    ),
+
+    time_unit: $ => /[munpf]?s/,
 
     // A.8.7 Numbers
     _number: $ => choice(
