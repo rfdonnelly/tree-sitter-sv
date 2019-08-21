@@ -1,0 +1,219 @@
+==================
+decimal - naked
+==================
+
+int a = 1;
+
+---
+
+(source_text
+  (package_item (data_declaration
+    (data_type_or_implicit (data_type (integer_atom_type)))
+    (list_of_variable_decl_assignments
+      (variable_decl_assignment
+        (simple_identifier)
+        (primary (decimal_number (unsigned_number)))
+      )
+    )
+  ))
+)
+
+==================
+decimal - inferred size explicit base
+==================
+
+int a = 'd1_1;
+
+---
+
+(source_text
+  (package_item (data_declaration
+    (data_type_or_implicit (data_type (integer_atom_type)))
+    (list_of_variable_decl_assignments
+      (variable_decl_assignment
+        (simple_identifier)
+        (primary (decimal_number))
+      )
+    )
+  ))
+)
+
+==================
+decimal - inferred size signed explicit base
+==================
+
+int a = 'sd1;
+
+---
+
+(source_text
+  (package_item (data_declaration
+    (data_type_or_implicit (data_type (integer_atom_type)))
+    (list_of_variable_decl_assignments
+      (variable_decl_assignment
+        (simple_identifier)
+        (primary (decimal_number))
+      )
+    )
+  ))
+)
+
+==================
+decimal - explicit size explicit base
+==================
+
+int a = 1'd1;
+
+---
+
+(source_text
+  (package_item (data_declaration
+    (data_type_or_implicit (data_type (integer_atom_type)))
+    (list_of_variable_decl_assignments
+      (variable_decl_assignment
+        (simple_identifier)
+        (primary (decimal_number))
+      )
+    )
+  ))
+)
+
+==================
+decimal - explicit size signed explicit base
+==================
+
+int a = 32'sd1;
+
+---
+
+(source_text
+  (package_item (data_declaration
+    (data_type_or_implicit (data_type (integer_atom_type)))
+    (list_of_variable_decl_assignments
+      (variable_decl_assignment
+        (simple_identifier)
+        (primary (decimal_number))
+      )
+    )
+  ))
+)
+
+==================
+decimal - x
+==================
+
+int a = 'dx_;
+
+---
+
+(source_text
+  (package_item (data_declaration
+    (data_type_or_implicit (data_type (integer_atom_type)))
+    (list_of_variable_decl_assignments
+      (variable_decl_assignment
+        (simple_identifier)
+        (primary (decimal_number))
+      )
+    )
+  ))
+)
+
+==================
+decimal - z
+==================
+
+int a = 'd?_;
+
+---
+
+(source_text
+  (package_item (data_declaration
+    (data_type_or_implicit (data_type (integer_atom_type)))
+    (list_of_variable_decl_assignments
+      (variable_decl_assignment
+        (simple_identifier)
+        (primary (decimal_number))
+      )
+    )
+  ))
+)
+
+==================
+hex - inferred size
+==================
+
+int a = 'h0;
+
+---
+
+(source_text
+  (package_item (data_declaration
+    (data_type_or_implicit (data_type (integer_atom_type)))
+    (list_of_variable_decl_assignments
+      (variable_decl_assignment
+        (simple_identifier)
+        (primary (hex_number))
+      )
+    )
+  ))
+)
+
+==================
+hex - explicit size signed x z
+==================
+
+int a = 32'sh0123456_789a_bcdef_ABCEDF_zZ?xX;
+
+---
+
+(source_text
+  (package_item (data_declaration
+    (data_type_or_implicit (data_type (integer_atom_type)))
+    (list_of_variable_decl_assignments
+      (variable_decl_assignment
+        (simple_identifier)
+        (primary (hex_number))
+      )
+    )
+  ))
+)
+
+==================
+octal - inferred size
+==================
+
+int a = 'O0;
+
+---
+
+(source_text
+  (package_item (data_declaration
+    (data_type_or_implicit (data_type (integer_atom_type)))
+    (list_of_variable_decl_assignments
+      (variable_decl_assignment
+        (simple_identifier)
+        (primary (octal_number))
+      )
+    )
+  ))
+)
+
+==================
+octal - explicit size signed x z
+==================
+
+int a = 32'sO0123456_7_zZ?xX;
+
+---
+
+(source_text
+  (package_item (data_declaration
+    (data_type_or_implicit (data_type (integer_atom_type)))
+    (list_of_variable_decl_assignments
+      (variable_decl_assignment
+        (simple_identifier)
+        (primary (octal_number))
+      )
+    )
+  ))
+)

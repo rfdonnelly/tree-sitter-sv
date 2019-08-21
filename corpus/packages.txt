@@ -91,7 +91,7 @@ package with variables
 
 package p;
   int a;
-  int b = expression;
+  int b = null;
 endpackage
 
 ---
@@ -112,7 +112,7 @@ endpackage
       (list_of_variable_decl_assignments
         (variable_decl_assignment
           (simple_identifier)
-          (expression)
+          (primary)
         )
       )
     ))

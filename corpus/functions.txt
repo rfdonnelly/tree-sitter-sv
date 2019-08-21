@@ -43,7 +43,7 @@ ANSI w/ statement
 ==================
 
 function void f();
-  return expression;
+  return null;
 endfunction
 
 ---
@@ -54,7 +54,7 @@ endfunction
       (function_body_declaration_ansi
         (function_data_type_or_implicit (data_type_or_void))
         (simple_identifier)
-        (statement (jump_statement (expression)))
+        (statement (jump_statement (primary)))
       )
     )
   )
@@ -65,7 +65,7 @@ ANSI w/ ports
 ==================
 
 function void f(input int a, output int b);
-  return expression;
+  return null;
 endfunction
 
 ---
@@ -88,7 +88,7 @@ endfunction
             (simple_identifier)
           )
         )
-        (statement (jump_statement (expression)))
+        (statement (jump_statement (primary)))
       )
     )
   )
@@ -100,7 +100,7 @@ ANSI w/ block_item_declaration
 
 function void f();
   block_item_declaration
-  return expression;
+  return null;
 endfunction
 
 ---
@@ -112,7 +112,7 @@ endfunction
         (function_data_type_or_implicit (data_type_or_void))
         (simple_identifier)
         (block_item_declaration)
-        (statement (jump_statement (expression)))
+        (statement (jump_statement (primary)))
       )
     )
   )
@@ -123,7 +123,7 @@ ANSI w/ end identifier
 ==================
 
 function void f();
-  return expression;
+  return null;
 endfunction : f
 
 ---
@@ -134,7 +134,7 @@ endfunction : f
       (function_body_declaration_ansi
         (function_data_type_or_implicit (data_type_or_void))
         (simple_identifier)
-        (statement (jump_statement (expression)))
+        (statement (jump_statement (primary)))
         (simple_identifier)
       )
     )
@@ -146,7 +146,7 @@ ANSI with implicit types
 ==================
 
 function void f(signed [] b, [][]c[][]);
-  return expression;
+  return null;
 endfunction
 
 ---
@@ -175,7 +175,7 @@ endfunction
             (variable_dimension (unsized_dimension))
           )
         )
-        (statement (jump_statement (expression)))
+        (statement (jump_statement (primary)))
       )
     )
   )

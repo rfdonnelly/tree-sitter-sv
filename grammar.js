@@ -231,7 +231,7 @@ module.exports = grammar({
       seq(
         $.variable_identifier,
         repeat($.variable_dimension),
-        optional(seq('=', $.expression))
+        optional(seq('=', $._expression))
       ),
       // FIXME
       // seq(
@@ -327,7 +327,7 @@ module.exports = grammar({
       optional(seq(
         $.port_identifier,
         repeat($.variable_dimension),
-        optional(seq('=', $.expression))
+        optional(seq('=', $._expression))
       ))
     )),
 
@@ -386,7 +386,7 @@ module.exports = grammar({
 
     // A.6.5 Timing control statements
     jump_statement: $ => choice(
-      seq('return', optional($.expression), ';'),
+      seq('return', optional($._expression), ';'),
       seq('break', ';'),
       seq('continue', ';')
     ),
@@ -422,10 +422,62 @@ module.exports = grammar({
       $.constant_expression, ':', $.constant_expression
     ),
     // FIXME
-    expression: $ => 'expression',
+    _expression: $ => choice(
+        $.primary
+    ),
 
     // A.8.4 Primaries
+    // FIXME
+    primary: $ => choice(
+        $._primary_literal,
+        'this',
+        '$',
+        'null'
+    ),
+
+    _primary_literal: $ => choice(
+        $._number,
+        $.time_literal,
+        // FIXME
+        // $.unbased_unsized_literal,
+        // $.string_literal
+    ),
+
     time_literal: $ => '1ns', // FIXME
+
+    // A.8.7 Numbers
+    _number: $ => choice(
+        $._integral_number
+        // FIXME
+        // real_number
+    ),
+
+    _integral_number: $ => choice(
+        $.decimal_number,
+        $.octal_number,
+        $.binary_number,
+        $.hex_number
+    ),
+
+    decimal_number: $=> choice(
+        $.unsigned_number,
+        /([1-9][0-9_]*)?'[sS]?[dD]([0-9][0-9_]*|[xX]_*|[zZ?]_*)/,
+    ),
+
+    binary_number: $ =>
+      /([1-9][0-9_]*)?'[sS]?[bB]([01xXzZ?][01xXzZ?_]*)/,
+
+    octal_number: $ =>
+      /([1-9][0-9_]*)?'[sS]?[oO]([0-7xXzZ?][0-7xXzZ?_]*)/,
+
+    hex_number: $ =>
+      /([1-9][0-9_]*)?'[sS]?[hH]([0-9a-fA-FxXzZ?][0-9a-fA-FxXzZ?_]*)/,
+
+    size: $ => $.non_zero_unsigned_number,
+
+    non_zero_unsigned_number: $ => /[1-9][_0-9]*/,
+
+    unsigned_number: $ => /[0-9][0-9_]*/,
 
     // A.9 General
 
