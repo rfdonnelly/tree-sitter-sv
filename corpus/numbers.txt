@@ -217,3 +217,23 @@ int a = 32'sO0123456_7_zZ?xX;
     )
   ))
 )
+
+==================
+unbased unsized
+==================
+
+int a = '0;
+
+---
+
+(source_text
+  (package_item (data_declaration
+    (data_type_or_implicit (data_type (integer_atom_type)))
+    (list_of_variable_decl_assignments
+      (variable_decl_assignment
+        (simple_identifier)
+        (primary (unbased_unsized_literal))
+      )
+    )
+  ))
+)

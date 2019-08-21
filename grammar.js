@@ -438,8 +438,8 @@ module.exports = grammar({
     _primary_literal: $ => choice(
         $._number,
         $.time_literal,
+        $.unbased_unsized_literal,
         // FIXME
-        // $.unbased_unsized_literal,
         // $.string_literal
     ),
 
@@ -478,6 +478,8 @@ module.exports = grammar({
     non_zero_unsigned_number: $ => /[1-9][_0-9]*/,
 
     unsigned_number: $ => /[0-9][0-9_]*/,
+
+    unbased_unsized_literal: $ => /'[01zZxX]/,
 
     // A.9 General
 
